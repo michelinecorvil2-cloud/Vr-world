@@ -1,0 +1,26 @@
+{
+  "id": "/",
+  "name": "VR WORLD Mobile VR Hub",
+  "short_name": "VR WORLD",
+  "description": "A mobile VR game hub with a 3D jungle game.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#070b18",
+  "theme_color": "#070b18",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

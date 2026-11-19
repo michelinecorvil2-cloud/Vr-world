@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#070b18">\n<link rel="manifest" href="./manifest.webmanifest">\n<link rel="icon" href="./icon-192.png">
+<title>VR WORLD</title>
+<style>
+:root{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#f5f7ff;background:#070b18}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -15%,#263c75 0,#10172e 42%,#070b18 80%);color:#f5f7ff}
+button{border:0;border-radius:13px;padding:11px 15px;background:#6878ff;color:white;font-weight:800;font-size:14px;cursor:pointer}
+button.secondary{background:#253252;color:#e5ebff}button.ghost{background:transparent;border:1px solid #50608a}
+header{display:flex;align-items:center;justify-content:space-between;padding:17px 18px;position:sticky;top:0;background:#080d1de8;backdrop-filter:blur(14px);z-index:5;border-bottom:1px solid #26345a}
+.logo{font-weight:1000;letter-spacing:.16em;color:#8cecff;font-size:19px}.sub{font-size:10px;letter-spacing:.18em;color:#9aa9d1}
+main{max-width:980px;margin:auto;padding:18px 16px 90px}
+h1{font-size:clamp(28px,6vw,46px);line-height:1.03;margin:12px 0}
+h2{font-size:21px;margin:24px 0 12px}.muted{color:#aebbdc}.small{font-size:12px;line-height:1.5;color:#aebbdc}
+.hero{border:1px solid #4b5d91;border-radius:24px;padding:22px;background:linear-gradient(130deg,#253e72dd,#452e72bb 55%,#102b48dd);box-shadow:0 18px 60px #0006;overflow:hidden;position:relative}
+.hero:after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;right:-70px;top:-65px;background:#6deaff22;filter:blur(4px)}
+.hero p{max-width:520px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:17px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:13px}
+.card{border:1px solid #2e3b61;border-radius:18px;background:linear-gradient(150deg,#17213d,#0e1529);padding:14px;min-width:0}
+.art{height:118px;border-radius:13px;margin-bottom:12px;display:flex;align-items:center;justify-content:center;font-size:54px;background:radial-gradient(circle at 50% 35%,#5879b8,#192a4a 62%,#111a31)}
+.card h3{margin:4px 0 5px}.card p{margin:0 0 12px}.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+nav{position:fixed;bottom:0;left:0;right:0;z-index:6;display:flex;justify-content:center;gap:5px;padding:9px 6px calc(9px + env(safe-area-inset-bottom));background:#080d1df2;border-top:1px solid #2c3b60;backdrop-filter:blur(12px)}
+nav button{flex:1;max-width:180px;padding:11px 5px;background:transparent;color:#aebbdc}
+nav button.active{background:#263b68;color:#fff}
+.view{display:none}.view.active{display:block}
+.pill{display:inline-block;border:1px solid #5873a8;border-radius:99px;padding:5px 9px;font-size:11px;color:#bceeff}
+#playScreen{display:none;position:fixed;inset:0;background:#070d1c;z-index:10}
+#scene{position:absolute;inset:0}#scene canvas{display:block;width:100%;height:100%}
+#gameHud{position:absolute;inset:0;pointer-events:none}
+#gameTop{position:absolute;top:12px;left:12px;right:12px;display:flex;justify-content:space-between;align-items:center}
+#gamePanel{pointer-events:auto;position:absolute;left:12px;right:12px;bottom:12px;max-width:480px;background:#101a30eF;border:1px solid #52658f;border-radius:16px;padding:13px}
+#gamePanel button{margin:3px}.cam{position:absolute;right:12px;bottom:145px;width:100px;height:75px;object-fit:cover;transform:scaleX(-1);border:1px solid #91a8dc;border-radius:12px;display:none}
+#cross{position:absolute;left:50%;top:50%;width:9px;height:9px;border:1px solid white;border-radius:50%;transform:translate(-50%,-50%)}
+.notice{padding:11px;border:1px solid #5d6f9b;background:#101a30;border-radius:12px;margin:12px 0}
+@media(min-width:700px){main{padding-top:26px}.hero{padding:32px}}
+</style>
+</head>
+<body>
+<header><div><div class="logo">VR WORLD</div><div class="sub">YOUR MOBILE VR HUB</div></div><span class="pill">ANDROID • BETA</span></header>
+<main>
+<section id="home" class="view active">
+ <div class="hero">
+  <span class="pill">WELCOME TO YOUR VR UNIVERSE</span>
+  <h1>Step into<br><span style="color:#8cecff">VR WORLD.</span></h1>
+  <p class="muted">Explore immersive worlds, try hand gestures, and build your game library. Made to experiment with Android phones and Cardboard-style viewers.</p>
+  <div class="actions"><button onclick="launchGame('jungle')">▶ Play Jungle Run</button><button class="secondary" onclick="go('store')">Explore game store</button></div>
+ </div>
+ <h2>Featured worlds</h2>
+ <div class="grid">
+  <article class="card"><div class="art">🌴</div><h3>Jungle Run VR</h3><p class="small">Swing your arms and explore a glowing jungle.</p><button onclick="launchGame('jungle')">Play now</button></article>
+  <article class="card"><div class="art">🪐</div><h3>Orbit Explorer</h3><p class="small">A peaceful space scene is coming soon.</p><button class="secondary" onclick="go('store')">View store</button></article>
+ </div>
+ <div class="notice small"><b>Prototype note:</b> This is a working web-app starter. It is not yet an APK or a published Play Store product.</div>
+</section>
+<section id="store" class="view">
+ <h1>Game Store</h1><p class="muted">Browse the VR WORLD catalog. Store entries are demo listings until downloadable game packages are added.</p>
+ <div class="grid">
+  <article class="card"><div class="art">🌴</div><div class="row"><h3>Jungle Run VR</h3><span class="pill">FREE</span></div><p class="small">A 3D jungle exploration prototype with phone-look and experimental hand input.</p><button onclick="install('jungle')">Add to library</button></article>
+  <article class="card"><div class="art">🏁</div><div class="row"><h3>Neon Racer</h3><span class="pill">SOON</span></div><p class="small">A futuristic racing world. Game build not included yet.</p><button class="secondary" disabled>Coming soon</button></article>
+  <article class="card"><div class="art">🧩</div><div class="row"><h3>Portal Puzzles</h3><span class="pill">SOON</span></div><p class="small">Solve spatial puzzles in a mysterious world.</p><button class="secondary" disabled>Coming soon</button></article>
+  <article class="card"><div class="art">👾</div><div class="row"><h3>Alien Tag</h3><span class="pill">SOON</span></div><p class="small">A multiplayer chase concept. Online services are not connected.</p><button class="secondary" disabled>Coming soon</button></article>
+ </div>
+</section>
+<section id="library" class="view">
+ <h1>My Library</h1><p class="muted">Games you've added to this browser's local library.</p><div id="libraryList" class="grid"></div>
+</section>
+<section id="settings" class="view">
+ <h1>Settings</h1>
+ <div class="card">
+  <h3>VR display</h3><p class="small">Cardboard mode splits the display into left and right eye views. Put the phone in your viewer only after enabling the mode.</p>
+  <button onclick="launchGame('jungle',true)">Open VR preview</button>
+ </div>
+ <div class="card" style="margin-top:12px">
+  <h3>Camera and hand tracking</h3><p class="small">Hand tracking uses the front camera and MediaPipe. The camera must be permitted on an HTTPS page. The phone's front camera cannot see hands when the phone is enclosed in a typical Cardboard viewer.</p>
+ </div>
+ <div class="card" style="margin-top:12px">
+  <h3>Privacy</h3><p class="small">This prototype processes camera frames in your browser and does not upload or save camera video. External libraries and model files load from public CDNs.</p>
+ </div>
+</section>
+</main>
+<nav>
+ <button class="active" data-view="home" onclick="go('home')">⌂<br>Home</button>
+ <button data-view="store" onclick="go('store')">▦<br>Store</button>
+ <button data-view="library" onclick="go('library')">▣<br>Library</button>
+ <button data-view="settings" onclick="go('settings')">⚙<br>Settings</button>
+</nav>
+<div id="playScreen">
+ <div id="scene"></div><div id="gameHud"><div id="gameTop"><span class="pill">VR WORLD • JUNGLE RUN</span><button onclick="exitGame()">✕ Exit</button></div><div id="cross"></div><video id="cam" class="cam" playsinline muted></video>
+ <div id="gamePanel"><div class="row"><b>Jungle Run VR</b><span id="gameStatus" class="small">Ready</span></div><p id="gameInfo" class="small">Move your phone to look around. Tap Cardboard view for split-screen stereoscopic mode.</p><button onclick="toggleStereo()" id="stereoBtn">Cardboard view: OFF</button><button class="secondary" onclick="enableMotion()">Enable head tracking</button><button class="secondary" onclick="enableHands()">Enable hand camera</button></div></div>
+</div>
+<script>
+const views=['home','store','library','settings'];
+function go(name){views.forEach(v=>document.getElementById(v).classList.toggle('active',v===name));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.view===name));if(name==='library')renderLibrary()}
+let installed=JSON.parse(localStorage.getItem('vrworld-library')||'[]');
+function install(id){if(!installed.includes(id))installed.push(id);localStorage.setItem('vrworld-library',JSON.stringify(installed));alert('Jungle Run VR added to your library.');}
+function renderLibrary(){let el=document.getElementById('libraryList');el.innerHTML='';if(!installed.length){el.innerHTML='<div class="notice small">Your library is empty. Visit the Store and add Jungle Run VR.</div>';return}installed.forEach(id=>{let d=document.createElement('article');d.className='card';d.innerHTML='<div class="art">🌴</div><h3>Jungle Run VR</h3><p class="small">Installed in your VR WORLD library.</p><button>Play</button>';d.querySelector('button').onclick=()=>launchGame('jungle');el.appendChild(d)})}
+let threeLoaded=false,renderer,scene,camera,stereo=false,handTask=null,video=document.getElementById('cam'),lastWrist=null,swing=0,playerZ=0,animationId;
+async function loadThree(){
+ if(threeLoaded)return;threeLoaded=true;
+ const THREE=await import('https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js');
+ const root=document.getElementById('scene');scene=new THREE.Scene();scene.background=new THREE.Color(0x081326);scene.fog=new THREE.Fog(0x081326,12,65);
+ camera=new THREE.PerspectiveCamera(75,innerWidth/innerHeight,.1,1000);camera.position.set(0,1.7,6);
+ renderer=new THREE.WebGLRenderer({antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,1.7));renderer.setSize(innerWidth,innerHeight);root.appendChild(renderer.domElement);
+ scene.add(new THREE.HemisphereLight(0x9bcaff,0x18301f,2));let sun=new THREE.DirectionalLight(0xffffff,2);sun.position.set(5,10,4);scene.add(sun);
+ let floor=new THREE.Mesh(new THREE.PlaneGeometry(200,200),new THREE.MeshStandardMaterial({color:0x153b32}));floor.rotation.x=-Math.PI/2;floor.position.y=-.08;scene.add(floor);
+ let path=new THREE.Mesh(new THREE.PlaneGeometry(5,100),new THREE.MeshStandardMaterial({color:0x345044}));path.rotation.x=-Math.PI/2;path.position.set(0,-.06,-35);scene.add(path);
+ function tree(x,z,h){let tr=new THREE.Mesh(new THREE.CylinderGeometry(.18,.28,h*.55,7),new THREE.MeshStandardMaterial({color:0x68452c}));tr.position.set(x,h*.275,z);scene.add(tr);let lf=new THREE.Mesh(new THREE.IcosahedronGeometry(h*.34,1),new THREE.MeshStandardMaterial({color:0x167c59}));lf.position.set(x,h*.68,z);scene.add(lf)}
+ for(let i=0;i<70;i++)tree((i%2?1:-1)*(4+Math.random()*10),-i*2.5-4,3+Math.random()*4);
+ for(let i=0;i<25;i++){let o=new THREE.Mesh(new THREE.SphereGeometry(.12,10,8),new THREE.MeshBasicMaterial({color:0x42e8ff}));o.position.set((Math.random()-.5)*5,.7+Math.random()*2,-8-i*3);scene.add(o)}
+ let ring=new THREE.Mesh(new THREE.TorusGeometry(.8,.08,10,32),new THREE.MeshStandardMaterial({color:0xffd35a,emissive:0x6c3900}));ring.position.set(0,1.8,-18);scene.add(ring);
+ const left=new THREE.PerspectiveCamera(75,1,.1,1000),right=new THREE.PerspectiveCamera(75,1,.1,1000);
+ function frame(){animationId=requestAnimationFrame(frame);if(swing>.02){playerZ-=swing*.035;swing*=.94;camera.position.z=6+playerZ}ring.rotation.z+=.01;
+ if(stereo){let w=Math.floor(innerWidth/2),h=innerHeight;renderer.setScissorTest(true);renderer.setScissor(0,0,w,h);renderer.setViewport(0,0,w,h);left.position.copy(camera.position);left.rotation.copy(camera.rotation);left.position.x-=.032;left.aspect=w/h;left.updateProjectionMatrix();renderer.render(scene,left);renderer.setScissor(w,0,w,h);renderer.setViewport(w,0,w,h);right.position.copy(camera.position);right.rotation.copy(camera.rotation);right.position.x+=.032;right.aspect=w/h;right.updateProjectionMatrix();renderer.render(scene,right);renderer.setScissorTest(false)}else{renderer.setViewport(0,0,innerWidth,innerHeight);renderer.render(scene,camera)}}
+ frame();window.addEventListener('resize',()=>{if(!renderer)return;camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});
+}
+async function launchGame(id,fromSettings=false){document.getElementById('playScreen').style.display='block';document.getElementById('gameStatus').textContent='Loading';try{await loadThree();document.getElementById('gameStatus').textContent='Playing'}catch(e){document.getElementById('gameStatus').textContent='Load failed';document.getElementById('gameInfo').textContent='The 3D engine needs an internet connection to load.'}}
+function exitGame(){document.getElementById('playScreen').style.display='none';if(animationId)cancelAnimationFrame(animationId);if(video.srcObject)video.srcObject.getTracks().forEach(t=>t.stop());video.srcObject=null;video.style.display='none';handTask=null;lastWrist=null;stereo=false;document.getElementById('stereoBtn').textContent='Cardboard view: OFF'}
+function toggleStereo(){stereo=!stereo;document.getElementById('stereoBtn').textContent='Cardboard view: '+(stereo?'ON':'OFF')}
+async function enableMotion(){try{if(typeof DeviceOrientationEvent!=='undefined'&&typeof DeviceOrientationEvent.requestPermission==='function'){let p=await DeviceOrientationEvent.requestPermission();if(p!=='granted')throw Error('denied')}window.addEventListener('deviceorientation',e=>{if(!camera||e.alpha==null)return;camera.rotation.order='YXZ';camera.rotation.y=-THREE.MathUtils.degToRad(e.alpha||0);camera.rotation.x=THREE.MathUtils.clamp(THREE.MathUtils.degToRad(e.beta||90)-Math.PI/2,-1.1,1.1)});document.getElementById('gameStatus').textContent='Head tracking on'}catch(e){document.getElementById('gameStatus').textContent='Motion permission unavailable'}}
+async function enableHands(){try{document.getElementById('gameStatus').textContent='Opening camera';let stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:640,height:480},audio:false});video.srcObject=stream;video.style.display='block';await video.play();const vision=await import('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14');const fileset=await vision.FilesetResolver.forVisionTasks('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm');handTask=await vision.HandLandmarker.createFromOptions(fileset,{baseOptions:{modelAssetPath:'https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task',delegate:'GPU'},runningMode:'VIDEO',numHands:2});document.getElementById('gameStatus').textContent='Hand camera active';trackHands()}catch(e){console.error(e);document.getElementById('gameStatus').textContent='Camera setup failed';alert('Camera access requires HTTPS and permission. Try opening the app from a secure HTTPS website.')}}
+let lastTime=-1;function trackHands(){if(!handTask||video.readyState<2)return requestAnimationFrame(trackHands);if(video.currentTime!==lastTime){lastTime=video.currentTime;let r=handTask.detectForVideo(video,performance.now()),h=r.landmarks&&r.landmarks[0];if(h){if(lastWrist){let m=Math.hypot(h[0].x-lastWrist.x,h[0].y-lastWrist.y);if(m>.025)swing=Math.min(2.5,swing+m*22)}lastWrist={x:h[0].x,y:h[0].y};let pinch=Math.hypot(h[4].x-h[8].x,h[4].y-h[8].y)<.055;document.getElementById('gameStatus').textContent=pinch?'Pinch detected':'Hand tracking active'}else{lastWrist=null;document.getElementById('gameStatus').textContent='Show hand to camera'}}requestAnimationFrame(trackHands)}
+</script>
+<script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(console.warn))}</script>\n</body>
+</html>
